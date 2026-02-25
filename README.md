@@ -2,6 +2,12 @@
 
 A lightweight collection of everyday Python utilities.
 
+## Installation
+
+```bash
+pip install lyutil
+```
+
 ## Modules
 
 ### Timestamps
