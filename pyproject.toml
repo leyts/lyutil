@@ -1,0 +1,73 @@
+[project]
+name = "lyutil"
+version = "0.1.0"
+description = "A lightweight collection of everyday Python utilities."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENCE"]
+authors = [
+    { name = "Leyton Addison-Roach", email = "git@laddisonroach.com" },
+]
+requires-python = ">=3.14"
+keywords = ["utilities", "timestamps", "filenames"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/leyts/lyutil"
+Issues = "https://github.com/leyts/lyutil/issues"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "ruff>=0.15.2",
+    "time-machine>=3.2.0",
+    "ty>=0.0.18",
+]
+
+[build-system]
+requires = ["uv_build>=0.10.4,<0.11.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 20
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "W191",
+    "E111",
+    "E114",
+    "E117",
+    "D206",
+    "D300",
+    "Q000",
+    "Q001",
+    "Q002",
+    "Q003",
+    "COM812",
+    "COM819",
+    "TD",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*.py" = [
+    "ANN201",
+    "D104",
+    "S101",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
