@@ -49,19 +49,20 @@ class FileTimestamp:
                 separator is missing.
         """
         sep: str = FileTimestamp._SEPARATOR
-        min_length: int = len(
-            datetime.min.strftime(format=FileTimestamp._DT_FORMAT) + sep  # noqa: DTZ901
+        ts_len: int = len(
+            datetime.min.strftime(format=FileTimestamp._DT_FORMAT)  # noqa: DTZ901
         )
+        sep_pos: int = len(stem) - len(sep) - ts_len
 
-        if len(stem) <= min_length:
+        if sep_pos < 1:
             msg = f"Stem too short to contain a timestamp: {stem}"
             raise TimestampParseError(msg)
 
-        if stem[-min_length] != sep:
+        if stem[sep_pos] != sep:
             msg = f"Expected {sep!r} before timestamp in: {stem}"
             raise TimestampParseError(msg)
 
-        return stem[:-min_length], stem[-min_length + len(sep) :]
+        return stem[:sep_pos], stem[sep_pos + len(sep) :]
 
     @staticmethod
     def add(file: Path, timestamp: datetime | None = None) -> TimestampedFile:
