@@ -69,12 +69,11 @@ class FileTimestamp:
 
         Args:
             file: The original file path.
-            timestamp: The datetime to embed.
-                Defaults to ``datetime.now()``.
+            timestamp: The datetime to embed. Defaults to ``datetime.now()``.
 
         Returns:
-            A :class:`TimestampedFile` containing the timestamped
-            path and the datetime used.
+            A :class:`TimestampedFile` containing the timestamped path and
+                the datetime used.
         """
         FileTimestamp._validate_file(file)
 
@@ -92,8 +91,7 @@ class FileTimestamp:
         """Extract a timestamp previously added by :meth:`add`.
 
         Args:
-            file: A path whose stem ends with
-                ``_YYYY-MM-DD_HH-MM-SS``.
+            file: A path whose stem ends with ``_YYYY-MM-DD_HH-MM-SS``.
 
         Returns:
             A :class:`TimestampedFile` containing the original path
