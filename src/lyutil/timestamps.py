@@ -78,7 +78,7 @@ class FileTimestamp:
         FileTimestamp._validate_file(file)
 
         if timestamp is None:
-            timestamp = datetime.now()  # noqa: DTZ005
+            timestamp = datetime.now().replace(microsecond=0)  # noqa: DTZ005
 
         formatted: str = timestamp.strftime(format=FileTimestamp._DT_FORMAT)
         stamped: Path = file.with_stem(

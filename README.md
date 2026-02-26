@@ -23,9 +23,9 @@ Embed and extract timestamps in filenames.
 
 ```python
 >>> result = FileTimestamp.add(Path("path/to/file.txt"))
->>> print(result.file)
-file_2026-02-25_14-30-00.txt
->>> print(result.timestamp)
+>>> result.file
+path/to/file_2026-02-25_14-30-00.txt
+>>> result.timestamp
 2026-02-25 14:30:00
 ```
 
@@ -33,11 +33,11 @@ file_2026-02-25_14-30-00.txt
 
 ```python
 >>> parsed = FileTimestamp.read(result.file)
->>> print(parsed.file)
-file.txt
->>> print(parsed.timestamp)
+>>> parsed.file
+path/to/file.txt
+>>> parsed.timestamp
 2026-02-25 14:30:00
->>> print(parsed.age)
+>>> parsed.age
 0:00:12.345678
 ```
 
