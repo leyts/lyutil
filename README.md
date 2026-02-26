@@ -15,16 +15,16 @@ pip install lyutil
 Embed and extract timestamps in filenames.
 
 ```python
-from pathlib import Path
-from lyutil import FileTimestamp
+>>> from pathlib import Path
+>>> from lyutil import FileTimestamp
 ```
 
 **Add a timestamp to a filename:**
 
 ```python
->>> result = FileTimestamp.add(Path("backup.tar.gz"))
+>>> result = FileTimestamp.add(Path("path/to/file.txt"))
 >>> print(result.file)
-backup_2026-02-25_14-30-00.tar.gz
+file_2026-02-25_14-30-00.txt
 >>> print(result.timestamp)
 2026-02-25 14:30:00
 ```
@@ -34,7 +34,7 @@ backup_2026-02-25_14-30-00.tar.gz
 ```python
 >>> parsed = FileTimestamp.read(result.file)
 >>> print(parsed.file)
-backup.tar.gz
+file.txt
 >>> print(parsed.timestamp)
 2026-02-25 14:30:00
 >>> print(parsed.age)
