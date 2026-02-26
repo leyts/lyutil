@@ -79,12 +79,13 @@ class FileTimestamp:
         FileTimestamp._validate_file(file)
 
         if timestamp is None:
-            timestamp = datetime.now().replace(microsecond=0)  # noqa: DTZ005
+            timestamp = datetime.now()  # noqa: DTZ005
 
+        timestamp = timestamp.replace(microsecond=0)
+
+        sep: str = FileTimestamp._SEPARATOR
         formatted: str = timestamp.strftime(format=FileTimestamp._DT_FORMAT)
-        stamped: Path = file.with_stem(
-            stem=f"{file.stem}{FileTimestamp._SEPARATOR}{formatted}"
-        )
+        stamped: Path = file.with_stem(stem=sep.join((file.stem, formatted)))
         return TimestampedFile(file=stamped, timestamp=timestamp)
 
     @staticmethod
