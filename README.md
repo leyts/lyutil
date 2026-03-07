@@ -2,6 +2,9 @@
 
 A lightweight collection of everyday Python utilities.
 
+> [!WARNING]
+> This package is under development. The API is subject to breaking changes.
+
 ## Installation
 
 ```bash
