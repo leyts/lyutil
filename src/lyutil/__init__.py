@@ -1,4 +1,4 @@
-"""lyutil — lightweight utility functions."""
+"""lyutil package."""
 
 from lyutil.exceptions import InvalidPathError, TimestampParseError
 from lyutil.timestamps import FileTimestamp, TimestampedFile
