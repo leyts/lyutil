@@ -1,5 +1,9 @@
 # lyutil
 
+![PyPI - Version](https://img.shields.io/pypi/v/lyutil)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/lyutil)
+![PyPI - License](https://img.shields.io/pypi/l/lyutil)
+
 A lightweight collection of everyday Python utilities.
 
 > [!WARNING]
