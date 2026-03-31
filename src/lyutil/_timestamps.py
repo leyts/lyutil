@@ -1,12 +1,21 @@
 """Utilities for embedding timestamps in filenames."""
 
 from datetime import datetime, timedelta
+from pathlib import PurePath
 from typing import TYPE_CHECKING, ClassVar, NamedTuple
 
 from lyutil.exceptions import InvalidPathError, TimestampParseError
 
 if TYPE_CHECKING:
     from pathlib import Path
+
+
+def _get_true_stem(path: Path) -> str:
+    """Return the stem of path with all suffixes removed."""
+    p = path
+    while p.suffix:
+        p = PurePath(p.stem)
+    return p.stem
 
 
 class TimestampedFile(NamedTuple):
@@ -35,11 +44,11 @@ class FileTimestamp:
             raise InvalidPathError(msg)
 
     @staticmethod
-    def _split_stem(stem: str) -> tuple[str, str]:
+    def _split_stem(path: Path) -> tuple[str, str]:
         """Split a stem into the original stem and raw timestamp.
 
         Args:
-            stem: The filename stem to split.
+            path: File path whose true stem will be split.
 
         Returns:
             A ``(original_stem, raw_timestamp)`` tuple.
@@ -48,6 +57,7 @@ class FileTimestamp:
             TimestampParseError: If the stem is too short or the
                 separator is missing.
         """
+        stem = _get_true_stem(path)
         sep: str = FileTimestamp._SEPARATOR
         ts_len: int = len(
             datetime.min.strftime(format=FileTimestamp._DT_FORMAT)  # noqa: DTZ901
@@ -84,8 +94,10 @@ class FileTimestamp:
         timestamp = timestamp.replace(microsecond=0)
 
         sep: str = FileTimestamp._SEPARATOR
+        stem = _get_true_stem(file)
         formatted: str = timestamp.strftime(format=FileTimestamp._DT_FORMAT)
-        stamped: Path = file.with_stem(stem=sep.join((file.stem, formatted)))
+        suffixes = "".join(file.suffixes)
+        stamped: Path = file.with_name(stem + sep + formatted + suffixes)
         return TimestampedFile(file=stamped, timestamp=timestamp)
 
     @staticmethod
@@ -104,7 +116,7 @@ class FileTimestamp:
                 timestamp suffix.
         """
         FileTimestamp._validate_file(file)
-        org_stem, raw_ts = FileTimestamp._split_stem(file.stem)
+        org_stem, raw_ts = FileTimestamp._split_stem(file)
 
         try:
             ts: datetime = datetime.strptime(  # noqa: DTZ007
@@ -114,5 +126,6 @@ class FileTimestamp:
             msg = f"Could not parse timestamp: {raw_ts!r}"
             raise TimestampParseError(msg) from None
 
-        org_file: Path = file.with_stem(stem=org_stem)
+        suffixes = "".join(file.suffixes)
+        org_file: Path = file.with_name(org_stem + suffixes)
         return TimestampedFile(file=org_file, timestamp=ts)

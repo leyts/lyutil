@@ -53,6 +53,12 @@ class TestFileTimestampAdd:
         with pytest.raises(InvalidPathError, match="no usable stem"):
             FileTimestamp.read(path)
 
+    @pytest.mark.time_machine(TEST_DATETIME, tick=False)
+    def test_multiple_suffixes(self):
+        """Timestamp is inserted before all suffixes, not just the last."""
+        result: TimestampedFile = FileTimestamp.add(Path("data.tar.gz"))
+        assert result.file == Path("data_2025-06-20_14-05-59.tar.gz")
+
 
 class TestFileTimestampRead:
     """Tests for ``FileTimestamp.read``."""
