@@ -1,7 +1,7 @@
 """lyutil package."""
 
+from lyutil._timestamps import FileTimestamp, TimestampedFile
 from lyutil.exceptions import InvalidPathError, TimestampParseError
-from lyutil.timestamps import FileTimestamp, TimestampedFile
 
 __all__ = [
     "FileTimestamp",

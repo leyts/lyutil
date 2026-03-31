@@ -1,4 +1,4 @@
-"""Tests for lyutil.timestamps."""
+"""Tests for timestamps module."""
 
 from datetime import datetime
 from pathlib import Path
